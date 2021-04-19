@@ -1,0 +1,5 @@
+2021/03/13-20:09:48.789 73e8 Reusing MANIFEST C:\Users\powna\AppData\Local\Temp\flutter_tools.d1deed0\flutter_tools_chrome_device.e3043c50\Default\IndexedDB\https_f852b7671773cc2b9366a8d7827872ec.safeframe.googlesyndication.com_0.indexeddb.leveldb/MANIFEST-000001
+2021/03/13-20:10:12.356 68ac Level-0 table #5: started
+2021/03/13-20:10:12.359 68ac Level-0 table #5: 439 bytes OK
+2021/03/13-20:10:12.362 68ac Delete type=0 #3
+2021/03/13-20:10:12.363 68ac Manual compaction at level-0 from (begin) .. (end); will stop at (end)

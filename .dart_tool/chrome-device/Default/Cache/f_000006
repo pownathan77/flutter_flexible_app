@@ -1,0 +1,534 @@
+define(['dart_sdk', 'packages/flutter/src/widgets/widget_span.dart', 'packages/flutter/src/material/icon_button.dart', 'packages/flutter/src/widgets/icon.dart', 'packages/flutter/src/material/icons.dart', 'packages/flutter_flexible_app/MainDrawer.dart', 'packages/flutter/src/widgets/orientation_builder.dart', 'packages/flutter_flexible_app/ListWidget.dart', 'packages/flutter/src/material/page.dart', 'packages/flutter_flexible_app/DetailPage.dart', 'packages/flutter_flexible_app/DetailWidget.dart'], (function load__packages__flutter_flexible_app__MasterDetailPage_dart(dart_sdk, packages__flutter__src__widgets__widget_span$46dart, packages__flutter__src__material__icon_button$46dart, packages__flutter__src__widgets__icon$46dart, packages__flutter__src__material__icons$46dart, packages__flutter_flexible_app__MainDrawer$46dart, packages__flutter__src__widgets__orientation_builder$46dart, packages__flutter_flexible_app__ListWidget$46dart, packages__flutter__src__material__page$46dart, packages__flutter_flexible_app__DetailPage$46dart, packages__flutter_flexible_app__DetailWidget$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const _interceptors = dart_sdk._interceptors;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const framework = packages__flutter__src__widgets__widget_span$46dart.src__widgets__framework;
+  const text = packages__flutter__src__widgets__widget_span$46dart.src__widgets__text;
+  const widget_inspector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__widget_inspector;
+  const navigator = packages__flutter__src__widgets__widget_span$46dart.src__widgets__navigator;
+  const media_query = packages__flutter__src__widgets__widget_span$46dart.src__widgets__media_query;
+  const basic = packages__flutter__src__widgets__widget_span$46dart.src__widgets__basic;
+  const container = packages__flutter__src__widgets__widget_span$46dart.src__widgets__container;
+  const scaffold = packages__flutter__src__material__icon_button$46dart.src__material__scaffold;
+  const app_bar = packages__flutter__src__material__icon_button$46dart.src__material__app_bar;
+  const icon_button = packages__flutter__src__material__icon_button$46dart.src__material__icon_button;
+  const icon = packages__flutter__src__widgets__icon$46dart.src__widgets__icon;
+  const icons = packages__flutter__src__material__icons$46dart.src__material__icons;
+  const MainDrawer = packages__flutter_flexible_app__MainDrawer$46dart.MainDrawer;
+  const orientation_builder = packages__flutter__src__widgets__orientation_builder$46dart.src__widgets__orientation_builder;
+  const ListWidget = packages__flutter_flexible_app__ListWidget$46dart.ListWidget;
+  const page = packages__flutter__src__material__page$46dart.src__material__page;
+  const DetailPage = packages__flutter_flexible_app__DetailPage$46dart.DetailPage;
+  const DetailWidget = packages__flutter_flexible_app__DetailWidget$46dart.DetailWidget;
+  var MasterDetailPage = Object.create(dart.library);
+  dart._checkModuleNullSafetyMode(false);
+  var T = {
+    _LocationL: () => (T._LocationL = dart.constFn(dart.legacy(widget_inspector._Location)))(),
+    ObjectL: () => (T.ObjectL = dart.constFn(dart.legacy(core.Object)))(),
+    VoidToNull: () => (T.VoidToNull = dart.constFn(dart.fnType(core.Null, [])))(),
+    WidgetL: () => (T.WidgetL = dart.constFn(dart.legacy(framework.Widget)))(),
+    JSArrayOfWidgetL: () => (T.JSArrayOfWidgetL = dart.constFn(_interceptors.JSArray$(T.WidgetL())))(),
+    DetailPageL: () => (T.DetailPageL = dart.constFn(dart.legacy(DetailPage.DetailPage)))(),
+    BuildContextL: () => (T.BuildContextL = dart.constFn(dart.legacy(framework.BuildContext)))(),
+    BuildContextLToDetailPageL: () => (T.BuildContextLToDetailPageL = dart.constFn(dart.fnType(T.DetailPageL(), [T.BuildContextL()])))(),
+    intL: () => (T.intL = dart.constFn(dart.legacy(core.int)))(),
+    intLToNull: () => (T.intLToNull = dart.constFn(dart.fnType(core.Null, [T.intL()])))(),
+    RowL: () => (T.RowL = dart.constFn(dart.legacy(basic.Row)))(),
+    OrientationL: () => (T.OrientationL = dart.constFn(dart.legacy(media_query.Orientation)))(),
+    BuildContextLAndOrientationLToRowL: () => (T.BuildContextLAndOrientationLToRowL = dart.constFn(dart.fnType(T.RowL(), [T.BuildContextL(), T.OrientationL()])))()
+  };
+  var T$Eval = Object.assign({
+    _: () => T$Eval
+  }, T);
+  var S = {
+    _: () => S
+  };
+  var S$Eval = Object.assign({
+    _: () => S$Eval
+  }, S);
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C2() {
+      return C[2] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 21,
+        [_Location_line]: 21,
+        [_Location_file]: null
+      });
+    },
+    get C1() {
+      return C[1] = dart.constList([C[2] || CT.C2], T._LocationL());
+    },
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[1] || CT.C1,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 21,
+        [_Location_file]: "file:///C:/Users/powna/Documents/GitHub/flutter_flexible_app/lib/MasterDetailPage.dart"
+      });
+    },
+    get C5() {
+      return C[5] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 32,
+        [_Location_line]: 24,
+        [_Location_file]: null
+      });
+    },
+    get C4() {
+      return C[4] = dart.constList([C[5] || CT.C5], T._LocationL());
+    },
+    get C3() {
+      return C[3] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[4] || CT.C4,
+        [_Location_name]: null,
+        [_Location_column]: 21,
+        [_Location_line]: 24,
+        [_Location_file]: "file:///C:/Users/powna/Documents/GitHub/flutter_flexible_app/lib/MasterDetailPage.dart"
+      });
+    },
+    get C8() {
+      return C[8] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 15,
+        [_Location_line]: 24,
+        [_Location_file]: null
+      });
+    },
+    get C9() {
+      return C[9] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "tooltip",
+        [_Location_column]: 15,
+        [_Location_line]: 25,
+        [_Location_file]: null
+      });
+    },
+    get C10() {
+      return C[10] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onPressed",
+        [_Location_column]: 15,
+        [_Location_line]: 26,
+        [_Location_file]: null
+      });
+    },
+    get C7() {
+      return C[7] = dart.constList([C[8] || CT.C8, C[9] || CT.C9, C[10] || CT.C10], T._LocationL());
+    },
+    get C6() {
+      return C[6] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[7] || CT.C7,
+        [_Location_name]: null,
+        [_Location_column]: 11,
+        [_Location_line]: 23,
+        [_Location_file]: "file:///C:/Users/powna/Documents/GitHub/flutter_flexible_app/lib/MasterDetailPage.dart"
+      });
+    },
+    get C13() {
+      return C[13] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 16,
+        [_Location_line]: 31,
+        [_Location_file]: null
+      });
+    },
+    get C12() {
+      return C[12] = dart.constList([C[13] || CT.C13], T._LocationL());
+    },
+    get C11() {
+      return C[11] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[12] || CT.C12,
+        [_Location_name]: null,
+        [_Location_column]: 11,
+        [_Location_line]: 31,
+        [_Location_file]: "file:///C:/Users/powna/Documents/GitHub/flutter_flexible_app/lib/MasterDetailPage.dart"
+      });
+    },
+    get C16() {
+      return C[16] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "title",
+        [_Location_column]: 9,
+        [_Location_line]: 21,
+        [_Location_file]: null
+      });
+    },
+    get C17() {
+      return C[17] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "actions",
+        [_Location_column]: 9,
+        [_Location_line]: 22,
+        [_Location_file]: null
+      });
+    },
+    get C15() {
+      return C[15] = dart.constList([C[16] || CT.C16, C[17] || CT.C17], T._LocationL());
+    },
+    get C14() {
+      return C[14] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[15] || CT.C15,
+        [_Location_name]: null,
+        [_Location_column]: 15,
+        [_Location_line]: 20,
+        [_Location_file]: "file:///C:/Users/powna/Documents/GitHub/flutter_flexible_app/lib/MasterDetailPage.dart"
+      });
+    },
+    get C19() {
+      return C[19] = dart.constList([], T._LocationL());
+    },
+    get C18() {
+      return C[18] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[19] || CT.C19,
+        [_Location_name]: null,
+        [_Location_column]: 15,
+        [_Location_line]: 34,
+        [_Location_file]: "file:///C:/Users/powna/Documents/GitHub/flutter_flexible_app/lib/MasterDetailPage.dart"
+      });
+    },
+    get C22() {
+      return C[22] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 39,
+        [_Location_line]: 54,
+        [_Location_file]: null
+      });
+    },
+    get C21() {
+      return C[21] = dart.constList([C[22] || CT.C22], T._LocationL());
+    },
+    get C20() {
+      return C[20] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[21] || CT.C21,
+        [_Location_name]: null,
+        [_Location_column]: 28,
+        [_Location_line]: 54,
+        [_Location_file]: "file:///C:/Users/powna/Documents/GitHub/flutter_flexible_app/lib/MasterDetailPage.dart"
+      });
+    },
+    get C25() {
+      return C[25] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "count",
+        [_Location_column]: 31,
+        [_Location_line]: 47,
+        [_Location_file]: null
+      });
+    },
+    get C26() {
+      return C[26] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onItemSelected",
+        [_Location_column]: 35,
+        [_Location_line]: 47,
+        [_Location_file]: null
+      });
+    },
+    get C24() {
+      return C[24] = dart.constList([C[25] || CT.C25, C[26] || CT.C26], T._LocationL());
+    },
+    get C23() {
+      return C[23] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[24] || CT.C24,
+        [_Location_name]: null,
+        [_Location_column]: 20,
+        [_Location_line]: 47,
+        [_Location_file]: "file:///C:/Users/powna/Documents/GitHub/flutter_flexible_app/lib/MasterDetailPage.dart"
+      });
+    },
+    get C29() {
+      return C[29] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "flex",
+        [_Location_column]: 13,
+        [_Location_line]: 46,
+        [_Location_file]: null
+      });
+    },
+    get C30() {
+      return C[30] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 13,
+        [_Location_line]: 47,
+        [_Location_file]: null
+      });
+    },
+    get C28() {
+      return C[28] = dart.constList([C[29] || CT.C29, C[30] || CT.C30], T._LocationL());
+    },
+    get C27() {
+      return C[27] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[28] || CT.C28,
+        [_Location_name]: null,
+        [_Location_column]: 11,
+        [_Location_line]: 45,
+        [_Location_file]: "file:///C:/Users/powna/Documents/GitHub/flutter_flexible_app/lib/MasterDetailPage.dart"
+      });
+    },
+    get C33() {
+      return C[33] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 65,
+        [_Location_line]: 61,
+        [_Location_file]: null
+      });
+    },
+    get C32() {
+      return C[32] = dart.constList([C[33] || CT.C33], T._LocationL());
+    },
+    get C31() {
+      return C[31] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[32] || CT.C32,
+        [_Location_name]: null,
+        [_Location_column]: 52,
+        [_Location_line]: 61,
+        [_Location_file]: "file:///C:/Users/powna/Documents/GitHub/flutter_flexible_app/lib/MasterDetailPage.dart"
+      });
+    },
+    get C36() {
+      return C[36] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "flex",
+        [_Location_column]: 36,
+        [_Location_line]: 61,
+        [_Location_file]: null
+      });
+    },
+    get C37() {
+      return C[37] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 45,
+        [_Location_line]: 61,
+        [_Location_file]: null
+      });
+    },
+    get C35() {
+      return C[35] = dart.constList([C[36] || CT.C36, C[37] || CT.C37], T._LocationL());
+    },
+    get C34() {
+      return C[34] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[35] || CT.C35,
+        [_Location_name]: null,
+        [_Location_column]: 27,
+        [_Location_line]: 61,
+        [_Location_file]: "file:///C:/Users/powna/Documents/GitHub/flutter_flexible_app/lib/MasterDetailPage.dart"
+      });
+    },
+    get C38() {
+      return C[38] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[19] || CT.C19,
+        [_Location_name]: null,
+        [_Location_column]: 83,
+        [_Location_line]: 61,
+        [_Location_file]: "file:///C:/Users/powna/Documents/GitHub/flutter_flexible_app/lib/MasterDetailPage.dart"
+      });
+    },
+    get C41() {
+      return C[41] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 20,
+        [_Location_line]: 43,
+        [_Location_file]: null
+      });
+    },
+    get C40() {
+      return C[40] = dart.constList([C[41] || CT.C41], T._LocationL());
+    },
+    get C39() {
+      return C[39] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[40] || CT.C40,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 43,
+        [_Location_file]: "file:///C:/Users/powna/Documents/GitHub/flutter_flexible_app/lib/MasterDetailPage.dart"
+      });
+    },
+    get C44() {
+      return C[44] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "builder",
+        [_Location_column]: 32,
+        [_Location_line]: 35,
+        [_Location_file]: null
+      });
+    },
+    get C43() {
+      return C[43] = dart.constList([C[44] || CT.C44], T._LocationL());
+    },
+    get C42() {
+      return C[42] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[43] || CT.C43,
+        [_Location_name]: null,
+        [_Location_column]: 13,
+        [_Location_line]: 35,
+        [_Location_file]: "file:///C:/Users/powna/Documents/GitHub/flutter_flexible_app/lib/MasterDetailPage.dart"
+      });
+    },
+    get C47() {
+      return C[47] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "appBar",
+        [_Location_column]: 7,
+        [_Location_line]: 20,
+        [_Location_file]: null
+      });
+    },
+    get C48() {
+      return C[48] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "drawer",
+        [_Location_column]: 7,
+        [_Location_line]: 34,
+        [_Location_file]: null
+      });
+    },
+    get C49() {
+      return C[49] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "body",
+        [_Location_column]: 7,
+        [_Location_line]: 35,
+        [_Location_file]: null
+      });
+    },
+    get C46() {
+      return C[46] = dart.constList([C[47] || CT.C47, C[48] || CT.C48, C[49] || CT.C49], T._LocationL());
+    },
+    get C45() {
+      return C[45] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[46] || CT.C46,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 19,
+        [_Location_file]: "file:///C:/Users/powna/Documents/GitHub/flutter_flexible_app/lib/MasterDetailPage.dart"
+      });
+    }
+  }, false);
+  var C = Array(50).fill(void 0);
+  var I = ["package:flutter_flexible_app/MasterDetailPage.dart"];
+  MasterDetailPage.MasterDetailPage = class MasterDetailPage$ extends framework.StatefulWidget {
+    createState() {
+      return new MasterDetailPage._MasterDetailPageState.new();
+    }
+  };
+  (MasterDetailPage.MasterDetailPage.new = function(opts) {
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    MasterDetailPage.MasterDetailPage.__proto__.new.call(this, {$creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = MasterDetailPage.MasterDetailPage.prototype;
+  dart.addTypeTests(MasterDetailPage.MasterDetailPage);
+  dart.addTypeCaches(MasterDetailPage.MasterDetailPage);
+  dart.setMethodSignature(MasterDetailPage.MasterDetailPage, () => ({
+    __proto__: dart.getMethods(MasterDetailPage.MasterDetailPage.__proto__),
+    createState: dart.fnType(dart.legacy(MasterDetailPage._MasterDetailPageState), [])
+  }));
+  dart.setLibraryUri(MasterDetailPage.MasterDetailPage, I[0]);
+  var _Location_parameterLocations = dart.privateName(widget_inspector, "_Location.parameterLocations");
+  var _Location_name = dart.privateName(widget_inspector, "_Location.name");
+  var _Location_column = dart.privateName(widget_inspector, "_Location.column");
+  var _Location_line = dart.privateName(widget_inspector, "_Location.line");
+  var _Location_file = dart.privateName(widget_inspector, "_Location.file");
+  MasterDetailPage._MasterDetailPageState = class _MasterDetailPageState extends framework.State$(dart.legacy(MasterDetailPage.MasterDetailPage)) {
+    build(context) {
+      return new scaffold.Scaffold.new({appBar: new app_bar.AppBar.new({title: new text.Text.new("Flutter Demo Master/Detail", {$creationLocationd_0dea112b090073317d4: C[0] || CT.C0}), actions: T.JSArrayOfWidgetL().of([new icon_button.IconButton.new({icon: new icon.Icon.new(icons.Icons.shopping_cart, {$creationLocationd_0dea112b090073317d4: C[3] || CT.C3}), tooltip: "Check your cart!", onPressed: dart.fn(() => {
+                this.setState(dart.fn(() => {
+                  navigator.Navigator.pushNamed(T.ObjectL(), context, "/cart");
+                }, T.VoidToNull()));
+              }, T.VoidToNull()), $creationLocationd_0dea112b090073317d4: C[6] || CT.C6}), new text.Text.new("   ", {$creationLocationd_0dea112b090073317d4: C[11] || CT.C11})]), $creationLocationd_0dea112b090073317d4: C[14] || CT.C14}), drawer: new MainDrawer.MainDrawer.new({$creationLocationd_0dea112b090073317d4: C[18] || CT.C18}), body: new orientation_builder.OrientationBuilder.new({builder: dart.fn((context, orientation) => {
+            if (dart.notNull(media_query.MediaQuery.of(context).size.width) > 600) {
+              this.isLargeScreen = true;
+            } else {
+              this.isLargeScreen = false;
+            }
+            return new basic.Row.new({children: T.JSArrayOfWidgetL().of([new basic.Expanded.new({flex: 2, child: new ListWidget.ListWidget.new(10, dart.fn(value => {
+                    if (dart.test(this.isLargeScreen)) {
+                      this.selectedValue = value;
+                      this.setState(dart.fn(() => {
+                      }, T.VoidToNull()));
+                    } else {
+                      navigator.Navigator.push(dart.dynamic, context, new page.MaterialPageRoute.new({builder: dart.fn(context => new DetailPage.DetailPage.new(value, {$creationLocationd_0dea112b090073317d4: C[20] || CT.C20}), T.BuildContextLToDetailPageL())}));
+                    }
+                  }, T.intLToNull()), {$creationLocationd_0dea112b090073317d4: C[23] || CT.C23}), $creationLocationd_0dea112b090073317d4: C[27] || CT.C27}), dart.test(this.isLargeScreen) ? new basic.Expanded.new({flex: 3, child: new DetailWidget.DetailWidget.new(this.selectedValue, {$creationLocationd_0dea112b090073317d4: C[31] || CT.C31}), $creationLocationd_0dea112b090073317d4: C[34] || CT.C34}) : new container.Container.new({$creationLocationd_0dea112b090073317d4: C[38] || CT.C38})]), $creationLocationd_0dea112b090073317d4: C[39] || CT.C39});
+          }, T.BuildContextLAndOrientationLToRowL()), $creationLocationd_0dea112b090073317d4: C[42] || CT.C42}), $creationLocationd_0dea112b090073317d4: C[45] || CT.C45});
+    }
+  };
+  (MasterDetailPage._MasterDetailPageState.new = function() {
+    this.selectedValue = 0;
+    this.isLargeScreen = false;
+    MasterDetailPage._MasterDetailPageState.__proto__.new.call(this);
+    ;
+  }).prototype = MasterDetailPage._MasterDetailPageState.prototype;
+  dart.addTypeTests(MasterDetailPage._MasterDetailPageState);
+  dart.addTypeCaches(MasterDetailPage._MasterDetailPageState);
+  dart.setMethodSignature(MasterDetailPage._MasterDetailPageState, () => ({
+    __proto__: dart.getMethods(MasterDetailPage._MasterDetailPageState.__proto__),
+    build: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext)])
+  }));
+  dart.setLibraryUri(MasterDetailPage._MasterDetailPageState, I[0]);
+  dart.setFieldSignature(MasterDetailPage._MasterDetailPageState, () => ({
+    __proto__: dart.getFields(MasterDetailPage._MasterDetailPageState.__proto__),
+    selectedValue: dart.fieldType(dart.legacy(core.int)),
+    isLargeScreen: dart.fieldType(dart.legacy(core.bool))
+  }));
+  dart.trackLibraries("packages/flutter_flexible_app/MasterDetailPage.dart", {
+    "package:flutter_flexible_app/MasterDetailPage.dart": MasterDetailPage
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["MasterDetailPage.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAS0C;IAAwB;;;;;;EAClE;;;;;;;;;;;;;;UAO4B;AACxB,YAAO,oCACG,+BACC,kBAAK,iGACH,yBACP,sCACU,kBAAW,8FACR,+BACE;AAGP,gBAFF,cAAS;AAC8B,kBAA3B,2CAAU,OAAO,EAAE;;2FAGrC,kBAAK,wIAGD,gGACF,yDAA4B,SAAC,SAAS;AAE1C,gBAAsC,aAAvB,AAAY,AAAK,0BAAd,OAAO,gBAAe;AAClB,cAApB,qBAAgB;;AAEK,cAArB,qBAAgB;;AAGlB,kBAAO,8BAAsB,yBAE3B,8BACQ,UACC,8BAAW,IAAI,QAAC;AACrB,kCAAI;AACmB,sBAArB,qBAAgB,KAAK;AACN,sBAAf,cAAS;;;AAMP,sBAJQ,uCAAK,OAAO,EAAE,yCACb,QAAC,WACD,8BAAW,KAAK;;uKAOjC,sBAAgB,8BAAe,UAAU,kCAAa,4IAAkB;;IAIhF;;;IAnDI,qBAAgB;IAChB,qBAAgB;;;EAmDtB","file":"../../../../../../packages/flutter_flexible_app/MasterDetailPage.dart.lib.js"}');
+  // Exports:
+  return {
+    MasterDetailPage: MasterDetailPage
+  };
+}));
+
+//# sourceMappingURL=MasterDetailPage.dart.lib.js.map
