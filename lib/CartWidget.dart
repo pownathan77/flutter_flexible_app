@@ -10,6 +10,48 @@ import 'ProductDescriptionPage.dart';
 
 typedef Null ItemSelectedCallback(int value);
 
+Future<DeleteCart> cartDelete(String AID, PID) async {
+  final response = await http.post(Uri.https('nmcapstone.rssyn.com', 'Capstone-Backend/removefromcart.php'),
+    encoding: Encoding.getByName("utf-8"),
+    body: <String, String>{
+      'AID' : AID,
+      'PID' : PID,
+    },
+  );
+
+  if (response.statusCode == 200) {
+    return DeleteCart.fromJson(jsonDecode(response.body));
+  }
+  else {
+    throw Exception('Server error. Try again later.');
+  }
+}
+
+// TODO: DeleteCart constructor
+class DeleteCart {
+  final String AID;
+  final String email;
+  final String userPassword;
+  final String username;
+  final String fname;
+  final String lname;
+  final String phone;
+
+  DeleteCart({this.email, this.userPassword, this.phone, this.fname, this.lname, this.username, this.AID});
+
+  factory DeleteCart.fromJson(Map<String, dynamic> json) {
+    return DeleteCart(
+      AID: json['AID'],
+      email: json['email'],
+      userPassword: json['userPassword'],
+      username: json['username'],
+      fname: json['fname'],
+      lname: json['lname'],
+      phone: json['phone'],
+    );
+  }
+}
+
 Future<List<CartInventory>> GetCart(int aid) async {
   print('getCart: ' + aid.toString());
   final response = await http.post(Uri.https('nmcapstone.rssyn.com', 'Capstone-Backend/showcart.php'),
@@ -64,24 +106,20 @@ class CartInventory {
 class CartInventoryList extends StatefulWidget {
   final List<CartInventory> products;
 
-/*  set totalPrice(value) {
-    totalPrice = value;
-  } */
-
-//  get totalPrice => totalPrice;
-
   CartInventoryList({Key key, this.products,}) : super(key: key);
 
   CartInventoryState createState() => CartInventoryState();
 }
 
 class CartInventoryState extends State<CartInventoryList> {
-  static var totalPrice = 0.0;
+  static var totalPrice = 0.00;
   int quantity = 1;
 
   void changeTotal() {
+    CartInventoryState.totalPrice = 0;
     if (widget.products.length == 0) {
       print('List is empty');
+      CartInventoryState.totalPrice = 0.00;
     }
     else {
       for (var i = 0; i < widget.products.length; i++) {
@@ -90,30 +128,6 @@ class CartInventoryState extends State<CartInventoryList> {
                 int.parse(widget.products[i].productAmount);
         print('Price in for loop' + widget.products[i].price);
       }
-    }
-  }
-
-  void _addQuantity() {
-    if (quantity >= 1 && quantity < 99) {
-      setState(() {
-        quantity++;
-      });
-    }
-    else if (quantity >= 99){
-
-    }
-    else {
-
-    }
-  }
-
-  void _subtractQuantity() {
-    if (quantity > 1) {
-      setState(() {
-        quantity--;
-      });
-    }
-    else {
     }
   }
 
@@ -186,13 +200,6 @@ class CartInventoryState extends State<CartInventoryList> {
                                     children: [
                                       Align(alignment: Alignment.bottomLeft, child: Text((widget.products[position].price == '0.00' ? 'FREE' :   '\$' + widget.products[position].price), style: TextStyle(fontSize: isLargeScreen ? 18.0 : 17.0, fontFamily: 'Montserrat Medium', color: Colors.black.withOpacity(0.6)),)),
                                       Align(alignment: Alignment.bottomRight, child: Row(children: [                                    Text("Quantity:  ", style: TextStyle(fontFamily: 'Montserrat Medium', fontSize: isLargeScreen ? 18 : 15)),
-                                        TextButton(
-                                          onPressed: _subtractQuantity,
-                                          child: Icon(Icons.remove),
-                                          style: ElevatedButton.styleFrom(
-                                            minimumSize: Size(20, 20),
-                                          ),
-                                        ),
                                         Container(
                                           height: 40,
                                           width: 25,
@@ -201,8 +208,15 @@ class CartInventoryState extends State<CartInventoryList> {
                                           ),
                                         ),
                                         TextButton(
-                                          onPressed: _addQuantity,
-                                          child: Icon(Icons.add),
+                                          onPressed: () {
+                                            setState(() {
+                                              cartDelete(widget.products[position].AID, widget.products[position].PID);
+                                              Future.delayed(Duration(milliseconds: 3000), () {setState(() {
+                                                initState();
+                                              });});
+                                            });
+                                          },
+                                          child: Icon(Icons.delete_outline),
                                           style: ElevatedButton.styleFrom(
                                             padding: EdgeInsets.zero,
 //                                  primary: Colors.blueAccent,

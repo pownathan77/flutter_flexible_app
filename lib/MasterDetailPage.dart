@@ -15,8 +15,9 @@ class MasterDetailPage extends StatefulWidget {
   final String fname;
   final String lname;
   final String phone;
+  final String tax;
 
-  MasterDetailPage({@required this.aid, this.email, this.username, this.fname, this.lname, this.phone});
+  MasterDetailPage({@required this.aid, this.email, this.username, this.fname, this.lname, this.phone, this.tax});
   @override
   _MasterDetailPageState createState() => _MasterDetailPageState();
 }
@@ -41,13 +42,13 @@ class _MasterDetailPageState extends State<MasterDetailPage> {
               tooltip: 'Check your cart!',
               onPressed: () {
                 setState(() {
-                  Navigator.pushNamed(context, '/cart', arguments: {'aid': widget.aid});
+                  Navigator.pushNamed(context, '/cart', arguments: {'aid': widget.aid, 'tax': widget.tax});
                 });
               }),
           Text('   '),
         ],
       ),
-      drawer: MainDrawer(email: widget.email, username: widget.username, fname: widget.fname, lname: widget.lname, phone: widget.phone,),
+      drawer: MainDrawer(email: widget.email, username: widget.username, fname: widget.fname, lname: widget.lname, phone: widget.phone, aid: widget.aid),
       body: OrientationBuilder(builder: (context, orientation) {
 
         if (MediaQuery.of(context).size.width > 900) {

@@ -35,8 +35,9 @@ class LoginInfo {
   final String fname;
   final String lname;
   final String phone;
+  final String taxable;
 
-  LoginInfo({this.email, this.userPassword, this.phone, this.fname, this.lname, this.username, this.AID});
+  LoginInfo({this.email, this.userPassword, this.phone, this.fname, this.lname, this.username, this.AID, this.taxable});
 
   factory LoginInfo.fromJson(Map<String, dynamic> json) {
     return LoginInfo(
@@ -47,6 +48,7 @@ class LoginInfo {
       fname: json['fname'],
       lname: json['lname'],
       phone: json['phone'],
+      taxable: json['taxExempt'],
     );
   }
 }
@@ -203,7 +205,7 @@ class _LoginPageState extends State<LoginPage> {
                           TextButton(
                             child: Text('Continue'),
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (_) => MasterDetailPage(email: _controller.text.toString(), username: snapshot.data.username, phone: snapshot.data.phone, lname: snapshot.data.lname, fname: snapshot.data.fname, aid: int.parse(snapshot.data.AID))));
+                              Navigator.push(context, MaterialPageRoute(builder: (_) => MasterDetailPage(email: _controller.text.toString(), username: snapshot.data.username, phone: snapshot.data.phone, lname: snapshot.data.lname, fname: snapshot.data.fname, aid: int.parse(snapshot.data.AID), tax: snapshot.data.taxable)));
                             },
                           )
                         ],

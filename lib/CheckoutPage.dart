@@ -109,7 +109,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 children: [
                   FadeIn(1.0, Center(child: Text('You have no registered addresses! How about we change that.', style: Theme.of(context).textTheme.headline4))),
                   Container(height: 80),
-                  FadeIn(2.0, TextButton(onPressed: () {Navigator.pushNamed(context, '/new-address', arguments: {'aid': checkargs['aid']});}, child: Text('REGISTER AN ADDRESS'),),),
+                  FadeIn(2.0, TextButton(onPressed: () {Navigator.pushNamed(context, '/new-address', arguments: {'aid': checkargs['aid'], 'tax': checkargs['tax']});}, child: Text('REGISTER AN ADDRESS'),),),
                 ],
               ),
             );
@@ -153,9 +153,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 splashColor: Colors.indigoAccent,
                                 onTap: () {
                                   print('AID on click: ' + snapshot.data[position].AID);
+                                  print('Checkargs: ' + checkargs.toString());
                                   Navigator.push(context, MaterialPageRoute(
                                     builder: (context) {
-                                      return CheckoutList(aid: int.parse(snapshot.data[position].AID), zipCode: snapshot.data[position].zipCode, address_ID: snapshot.data[position].address_ID, stateAbbrv: snapshot.data[position].stateAbbrv, city: snapshot.data[position].city,);
+                                      print("Checkargs:  " + checkargs.toString());
+                                      return CheckoutList(aid: int.parse(snapshot.data[position].AID), zipCode: snapshot.data[position].zipCode, address_ID: snapshot.data[position].address_ID, stateAbbrv: snapshot.data[position].stateAbbrv, city: snapshot.data[position].city, taxExempt: checkargs['tax'],);
                                     },
                                   ));
                                 },

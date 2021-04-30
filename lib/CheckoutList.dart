@@ -5,8 +5,57 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'CartWidget.dart';
+import 'CheckoutProductList.dart';
 import 'FadeIn.dart';
 import 'FadeInVert.dart';
+import 'MasterDetailPage.dart';
+
+Future<Purchase> getPurchase(String aid, subtotal, tax, total, address) async {
+  final response = await http.post(Uri.https('nmcapstone.rssyn.com', 'Capstone-Backend/topurchase.php'),
+    encoding: Encoding.getByName("utf-8"),
+    body: <String, dynamic>{
+      'aid': aid,
+      'subtotal': subtotal,
+      'tax': tax,
+      'total': total,
+      'address': address,
+    },
+  );
+
+  if (response.statusCode == 200) {
+    return Purchase.fromJson(jsonDecode(response.body));
+  }
+  else {
+    throw Exception('Server error. Try again later.');
+  }
+}
+
+// TODO: Purchase constructor
+class Purchase {
+  final String AID;
+  final String email;
+  final String userPassword;
+  final String username;
+  final String fname;
+  final String lname;
+  final String phone;
+  final String taxable;
+
+  Purchase({this.email, this.userPassword, this.phone, this.fname, this.lname, this.username, this.AID, this.taxable});
+
+  factory Purchase.fromJson(Map<String, dynamic> json) {
+    return Purchase(
+      AID: json['AID'],
+      email: json['email'],
+      userPassword: json['userPassword'],
+      username: json['username'],
+      fname: json['fname'],
+      lname: json['lname'],
+      phone: json['phone'],
+      taxable: json['taxExempt'],
+    );
+  }
+}
 
 Future<List<Product>> productCheck(int aid) async {
   print('productCheck: ' + aid.toString());
@@ -64,29 +113,46 @@ class CheckoutList extends StatefulWidget{
   final String stateAbbrv;
   final String city;
   final String zipCode;
+  final String taxExempt;
 
-  CheckoutList({this.aid, this.address_ID, this.zipCode, this.stateAbbrv, this.city});
+  CheckoutList({this.aid, this.address_ID, this.zipCode, this.stateAbbrv, this.city, this.taxExempt});
 
   _CheckoutListState createState() => _CheckoutListState();
 }
 
 class _CheckoutListState extends State<CheckoutList> {
+  Future<Purchase> _Purchase;
+  var total = 0.00;
+  var tax = 0.00;
   var isLargeScreen = false;
 
 //  _ProductDescriptionState({Key key, this.productDescription}) : super(key: key);
 
   @override
   void initState() {
+    Future.delayed(Duration.zero, () {setState(() {
+      calculateTotal();
+    });});
     print('InitState AID: ' + widget.aid.toString());
     super.initState();
-    Future.delayed(Duration(milliseconds: 1500), () {setState(() {
-      CartInventoryState.totalPrice = CartInventoryState.totalPrice - (CartInventoryState.totalPrice*0.5);
-    });});
+  }
+
+  void calculateTotal() {
+    total = 0.00;
+    CartInventoryState.totalPrice = CartInventoryState.totalPrice;
+    if (widget.taxExempt.contains('Y')) {
+      print(widget.taxExempt);
+      tax = 0.00;
+    }
+    else {
+      print(widget.taxExempt);
+      tax = CartInventoryState.totalPrice * 0.3;
+    }
+    total = tax + CartInventoryState.totalPrice;
   }
 
   @override
   Widget build(BuildContext context) {
-
     final Map checkoutargs = ModalRoute.of(context).settings.arguments;
     var size = MediaQuery
         .of(context)
@@ -106,8 +172,8 @@ class _CheckoutListState extends State<CheckoutList> {
         title: Text('Final Checkout'),
         elevation: 0.0,
       ),
-      body: FutureBuilder<List<CartInventory>>(
-        future: GetCart(widget.aid),
+      body: (_Purchase == null) ? FutureBuilder<List<CheckoutProduct>>(
+        future: GetList(widget.aid),
         builder: (context, snapshot) {
           if (snapshot.hasError || snapshot.data == []) {
             print(snapshot.error);
@@ -151,7 +217,7 @@ class _CheckoutListState extends State<CheckoutList> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Expanded(flex: 3, child: ListTile(leading: Icon(Icons.attach_money, color: Colors.white,), title: Text('Total: ', style: Theme.of(context).textTheme.headline6.copyWith(color: Colors.white),), subtitle: Text("\$" + (CartInventoryState.totalPrice * 1.3).toString(), style: Theme.of(context).textTheme.bodyText2.copyWith(color: Colors.white.withOpacity(0.8))),)),
+                    Expanded(flex: 3, child: ListTile(leading: Icon(Icons.attach_money, color: Colors.white,), title: Text('Total: ', style: Theme.of(context).textTheme.headline6.copyWith(color: Colors.white),), subtitle: Text("\$" + total.toStringAsFixed(2), style: Theme.of(context).textTheme.bodyText2.copyWith(color: Colors.white.withOpacity(0.8))),)),
                   ],
                 ),
               ),
@@ -175,25 +241,37 @@ class _CheckoutListState extends State<CheckoutList> {
               )
             ],
           )
-              : SingleChildScrollView(
+              :
+          SingleChildScrollView(
             child: Column(
               children: [
                 SafeArea(child: Container(
                     height: 80,
+                    width: size.width,
                     decoration: BoxDecoration(
                       color: Colors.indigo,
                       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.0), bottomRight: Radius.circular(20.0)),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(flex: 3, child: ListTile(leading: Icon(Icons.attach_money, color: Colors.white,), title: Text('Subtotal: ', style: Theme.of(context).textTheme.headline6.copyWith(color: Colors.white),), subtitle: Text(CartInventoryState.totalPrice.toString(), style: Theme.of(context).textTheme.bodyText2.copyWith(color: Colors.white.withOpacity(0.8))),)),
-                        Expanded(flex: 1, child: Align(alignment: Alignment.centerRight, child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: FloatingActionButton(onPressed: () {Navigator.pushNamed(context, '/checkout', arguments: {'aid': snapshot.data[0].AID});}, child: Icon(Icons.next_week), elevation: 0, backgroundColor: Colors.indigo,),
-                        )))
-                      ],
+                    child: Container(
+                      constraints: BoxConstraints(maxWidth: 1000),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(flex: 3, child: ListTile(leading: Icon(Icons.subdirectory_arrow_right, color: Colors.amber[400],), title: Text((isLargeScreen ? 'Subtotal: ' : 'Sub: '), style: Theme.of(context).textTheme.headline6.copyWith(color: Colors.white.withOpacity(0.8)),), subtitle: Text('\$' + CartInventoryState.totalPrice.toString(), style: Theme.of(context).textTheme.bodyText2.copyWith(color: Colors.white.withOpacity(0.8))),)),
+                          Expanded(flex: 3, child: ListTile(leading: Icon(Icons.attach_money, color: Colors.teal[400],), title: Text('Tax: ', style: Theme.of(context).textTheme.headline6.copyWith(color: Colors.white.withOpacity(0.8)),), subtitle: Text('\$' + tax.toStringAsFixed(2), style: Theme.of(context).textTheme.bodyText2.copyWith(color: Colors.white.withOpacity(0.8))),)),
+                          Expanded(flex: 3, child: ListTile(leading: Icon(Icons.credit_card, color: Colors.red[400],), title: Text('Total: ', style: Theme.of(context).textTheme.headline6.copyWith(color: Colors.white),), subtitle: Text('\$' + total.toStringAsFixed(2), style: Theme.of(context).textTheme.bodyText2.copyWith(color: Colors.white)),)),
+                          Expanded(flex: 1, child: Align(alignment: Alignment.centerRight, child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: FloatingActionButton(onPressed: () {setState(() {
+                              _Purchase =
+                                  getPurchase(widget.aid.toString(), CartInventoryState.totalPrice.toString(), tax.toString(), total.toString(), (widget.address_ID + ', '  + widget.city + ' ' + widget.stateAbbrv + ' ' + widget.zipCode));
+                              print(_Purchase.toString());
+//                        Navigator.pushNamed(context, '/main');
+                            });}, child: Icon(Icons.navigate_next), elevation: 0, backgroundColor: Colors.indigo,),
+                          )))
+                        ],
+                      ),
                     )
                 ),
                 ),
@@ -211,7 +289,7 @@ class _CheckoutListState extends State<CheckoutList> {
                     ],
                   ),
                 ),
-                CartInventoryList(products: snapshot.data),
+                CheckoutProductList(products: snapshot.data),
               ],
             ),
           )
@@ -219,7 +297,97 @@ class _CheckoutListState extends State<CheckoutList> {
 
               : Center(child: CircularProgressIndicator());
         },
-      ),
+      ) : FutureBuilder<Purchase>(
+          future: _Purchase,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data.AID == widget.aid.toString()) {
+                print('AID: ' + snapshot.data.AID.toString());
+                return FadeInVert(
+                  0.2, AlertDialog(
+                  title: Text('Success!'),
+                  content: SingleChildScrollView(
+                      child: ListBody(
+                        children: [
+                          Text('There is always more to enjoy, please stay tuned!'),
+                        ],
+                      )
+                  ),
+                  actions: [
+                    TextButton(
+                      child: Text('Continue'),
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => MasterDetailPage(email: snapshot.data.email, username: snapshot.data.username, phone: snapshot.data.phone, lname: snapshot.data.lname, fname: snapshot.data.fname, aid: int.parse(snapshot.data.AID), tax: snapshot.data.taxable)));
+                      },
+                    )
+                  ],
+                ),
+                );
+              }
+              else if (snapshot.data.email != widget.aid) {
+                return FadeInVert(
+                  0.2, AlertDialog(
+                  title: Text('Unable to complete'),
+                  content: SingleChildScrollView(
+                      child: ListBody(
+                        children: [
+                          Text('Server error'),
+                          Container(
+                            height: 5,
+                          ),
+                          Text("Please log in again to complete."),
+                        ],
+                      )
+                  ),
+                  actions: [
+                    TextButton(
+                      child: Text('Close'),
+                      onPressed: () {
+                        setState(() {
+                          _Purchase = null;
+                        });
+                      },
+                    )
+                  ],
+                ),
+                );
+              }
+            }
+            else if (snapshot.hasError) {
+              return FadeInVert(
+                0.2, AlertDialog(
+                title: Text('Unable to log in'),
+                content: SingleChildScrollView(
+                    child: ListBody(
+                      children: [
+                        Text('Incorrect Data'),
+                        Container(
+                          height: 5,
+                        ),
+                        Text(snapshot.error.toString()),
+                      ],
+                    )
+                ),
+                actions: [
+                  TextButton(
+                    child: Text('Close'),
+                    onPressed: () {
+                      setState(() {
+                        _Purchase = null;
+                      });
+                    },
+                  )
+                ],
+              ),
+              );
+            }
+
+            return Center(
+                child: Container(
+                    height: 50,
+                    width: 50,
+                    child: CircularProgressIndicator()));
+          }),
     );
   }
 }

@@ -92,7 +92,7 @@ class _CartPageState extends State<CartPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                      Expanded(flex: 3, child: ListTile(leading: Icon(Icons.attach_money, color: Colors.white,), title: Text('Subtotal: ', style: Theme.of(context).textTheme.headline6.copyWith(color: Colors.white),), subtitle: Text("\$" + widget.totalPrice.toString(), style: Theme.of(context).textTheme.bodyText2.copyWith(color: Colors.white.withOpacity(0.8))),)),
+                      Expanded(flex: 3, child: ListTile(leading: Icon(Icons.attach_money, color: Colors.white,), title: Text('Subtotal: ', style: Theme.of(context).textTheme.headline6.copyWith(color: Colors.white),), subtitle: Text("\$" + CartInventoryState.totalPrice.toStringAsFixed(2), style: Theme.of(context).textTheme.bodyText2.copyWith(color: Colors.white.withOpacity(0.8))),)),
                           ],
                        ),
                      ),
@@ -102,13 +102,13 @@ class _CartPageState extends State<CartPage> {
                       children: [
                         FadeIn(
                           1.0, Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.fromLTRB(8, 32, 8, 16),
                             child: Text('Oh no, it looks like your cart is empty!', style: Theme.of(context).textTheme.headline4,),
                           ),
                         ),
                         FadeIn(
                           2.0, Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(16.0),
                           child: Icon(Icons.remove_shopping_cart_outlined, color: Colors.indigo[300], size: isLargeScreen ? 200 : 50),
                         )
                         )
@@ -129,10 +129,10 @@ class _CartPageState extends State<CartPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Expanded(flex: 3, child: ListTile(leading: Icon(Icons.attach_money, color: Colors.white,), title: Text('Subtotal: ', style: Theme.of(context).textTheme.headline6.copyWith(color: Colors.white),), subtitle: Text(CartInventoryState.totalPrice.toString(), style: Theme.of(context).textTheme.bodyText2.copyWith(color: Colors.white.withOpacity(0.8))),)),
+                                Expanded(flex: 3, child: ListTile(leading: Icon(Icons.attach_money, color: Colors.white,), title: Text('Subtotal: ', style: Theme.of(context).textTheme.headline6.copyWith(color: Colors.white),), subtitle: Text(CartInventoryState.totalPrice.toStringAsFixed(2), style: Theme.of(context).textTheme.bodyText2.copyWith(color: Colors.white.withOpacity(0.8))),)),
                                 Expanded(flex: 1, child: Align(alignment: Alignment.centerRight, child: Padding(
                                   padding: const EdgeInsets.all(16.0),
-                                  child: FloatingActionButton(onPressed: () {Navigator.pushNamed(context, '/checkout', arguments: {'aid': snapshot.data[0].AID});}, child: Icon(Icons.next_week), elevation: 0, backgroundColor: Colors.indigo,),
+                                  child: FloatingActionButton(onPressed: () {Navigator.pushNamed(context, '/checkout', arguments: {'aid': snapshot.data[0].AID, 'tax': cartargs['tax']});}, child: Icon(Icons.next_week), elevation: 0, backgroundColor: Colors.indigo,),
                                 )))
                               ],
                             )

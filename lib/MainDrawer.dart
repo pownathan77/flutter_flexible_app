@@ -4,13 +4,14 @@ import 'package:flutter_flexible_app/AccountPage.dart';
 import 'LoginPage.dart';
 
 class MainDrawer extends StatefulWidget {
+  final int aid;
   final String email;
   final String username;
   final String fname;
   final String lname;
   final String phone;
 
-  MainDrawer({this.email, this.username, this.fname, this.lname, this.phone});
+  MainDrawer({this.aid, this.email, this.username, this.fname, this.lname, this.phone});
 
   @override
   _StateMainDrawer createState() => _StateMainDrawer();
@@ -63,7 +64,7 @@ class _StateMainDrawer extends State<MainDrawer> {
                 title: Text('Orders'),
                 onTap: () {
                   setState(() {
-                    Navigator.pushNamed(context, '/orders');
+                    Navigator.pushNamed(context, '/orders', arguments: {'aid': widget.aid});
                   });
                 }
             ),

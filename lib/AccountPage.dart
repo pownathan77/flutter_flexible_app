@@ -30,7 +30,23 @@ class _AccountPageState extends State<AccountPage> {
         title: Text("Account Information"),
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: Color(0xff360033),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+            tileMode: TileMode.mirror,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xff360033),
+              Color(0xff0b8793),
+            ],
+            stops: [
+              0.2,
+              1.0,
+            ],
+          ),
+        ),
+      ),
       ),
       body: SingleChildScrollView(
         child: Stack(
